@@ -24,8 +24,8 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-app.get('/*', (req, res) => {
-  res.sendFile('D:/home/site/wwwroot/myapp/dist/myapp');
+app.get('*', (req, res) => {
+  res.sendFile('D:/home/site/wwwroot/myapp/dist/myapp/index.html');
 });
 
 app.listen(port, () => console.log('Started on port ' + port));
