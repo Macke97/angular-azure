@@ -16,7 +16,7 @@ const bodyParser = require('body-parser');
 
 app.use(cors(corsOptions));
 
-app.use(express.static(__dirname + '/myapp/dist/myapp'));
+app.use(express.static('D:/home/site/wwwroot/myapp/dist/myapp'));
 
 app.use(bodyParser.json());
 
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('*', (req, res) => {
-  res.sendFile( __dirname + '/myapp/dist/myapp/index.html');
+  res.sendFile('D:/home/site/wwwroot/myapp/dist/myapp');
 });
 
 app.listen(port, () => console.log('Started on port ' + port));
