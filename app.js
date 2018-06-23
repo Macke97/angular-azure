@@ -21,7 +21,7 @@ db.once('open', () => {
 const cors = require('cors');
 
 const corsOptions = {
-  origin: 'localhost:3000',
+  origin: 'https://angular-och-azure.azurewebsites.net',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
 }
 
@@ -29,6 +29,8 @@ const apiRouter = require('./api/index');
 
 //Body parser
 const bodyParser = require('body-parser');
+
+app.use(require('prerender-node').set('prerenderToken', '6cJDnfypMOuMIIrudXKk')); //To enable pre-rendering for Angular App
 
 app.use(session({
   secret: 'keyboard cat',
@@ -41,7 +43,7 @@ app.use(session({
 
 app.use(cors(corsOptions));
 
-app.use(express.static('./myapp/dist/myapp'));
+app.use(express.static(path.join(__dirname, '/myapp/dist/myapp')));
 
 app.use(bodyParser.json());
 
