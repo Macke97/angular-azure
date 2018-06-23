@@ -1,3 +1,3 @@
 module.exports = {
-  url: `mongodb://macke:macke122@ds161780.mlab.com:61780/my-node-test-app`
+  url: `mongodb+srv://macke:macke122@node-test-ajdfy.mongodb.net/node-test?retryWrites=true`
 }
