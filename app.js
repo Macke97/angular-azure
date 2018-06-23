@@ -21,7 +21,7 @@ db.once('open', () => {
 //Cors related
 const cors = require('cors');
 
-const whitelist = ['https://angular-och-azure.azurewebsites.net', 'http://localhost:4200'];
+const whitelist = ['https://angular-och-azure.azurewebsites.net', 'http://localhost:4200', 'http://localhost:3000'];
 
 const corsOptions = {
   origin: function(origin, callback) {
