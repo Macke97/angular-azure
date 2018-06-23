@@ -1,4 +1,5 @@
 <div class="row">
+  <h1 *ngIf="!books">Laddar böcker</h1>
   <div class="col-4 mb-2" *ngFor="let book of books">
     <div class="list-group" >
       <a class="list-group-item list-group-item-action flex-column align-items-start">
