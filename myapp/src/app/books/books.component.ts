@@ -16,11 +16,15 @@ export class BooksComponent implements OnInit {
   }
 
   getAllBooks(){
-    this._apiService.getBooks()
+    setTimeout(() => { //Simulate loading
+      this._apiService.getBooks()
       .subscribe((data:any) => {
         this.books = data;
         console.log(this.books)
       });
+
+    }, 1500)
+
   }
 
 }
