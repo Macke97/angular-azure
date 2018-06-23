@@ -24,15 +24,13 @@ router.post('/books', (req, res, next) => {
     year: req.body.year
   }
 
-  res.json(newBook)
-
   //Create new book
   Book.create(newBook, (error, book) => {
     if(error) {
-      console.log(error);
+      return console.log(error);
     }
+    return res.json(newBook);
   });
-  
 });
 
 module.exports = router;
