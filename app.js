@@ -25,7 +25,7 @@ const whitelist = ['https://angular-och-azure.azurewebsites.net', 'http://localh
 
 const corsOptions = {
   origin: function(origin, callback) {
-    if(whitelist.indexOf(origin) !== -1) {
+    if(whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
       console.log('Allowed by CORS!');
     } else {
