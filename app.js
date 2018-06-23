@@ -8,6 +8,15 @@ const session = require('express-session');
 
 const path = require('path');
 
+const mongoose = require('mongoose');
+
+//mongoose connection
+mongoose.connect(`mongodb+srv://macke:macke122@node-test-ajdfy.mongodb.net/node-test?retryWrites=true`);
+const db = mongoose.connection;
+db.once('open', () => {
+  console.log('DB CONNECTED!');
+});
+
 const cors = require('cors');
 
 const corsOptions = {
