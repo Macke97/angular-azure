@@ -23,7 +23,7 @@ export class BooksComponent implements OnInit {
         console.log(this.books)
       });
 
-    }, 1500)
+    }, 500);
 
   }
 
