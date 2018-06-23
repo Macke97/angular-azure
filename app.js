@@ -21,7 +21,7 @@ db.once('open', () => {
 const cors = require('cors');
 
 const corsOptions = {
-  origin: 'localhost:3000',
+  origin: 'https://angular-och-azure.azurewebsites.net',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
 }
 
