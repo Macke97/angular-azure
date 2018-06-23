@@ -18,10 +18,20 @@ db.once('open', () => {
   console.log('DB CONNECTED!');
 });
 
+//Cors related
 const cors = require('cors');
 
+const whitelist = ['https://angular-och-azure.azurewebsites.net', 'http://localhost:4200'];
+
 const corsOptions = {
-  origin: 'https://angular-och-azure.azurewebsites.net',
+  origin: function(origin, callback) {
+    if(whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+      console.log('Allowed by CORS!');
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
 }
 

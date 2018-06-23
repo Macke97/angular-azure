@@ -20,3 +20,30 @@
     </div>
   </div>
 </div>
+
+
+<!--Add new book form-->
+<div class="d-flex">
+  <div class="d-flex flex-column w-25">
+    <form #form="ngForm" (ngSubmit)="bookSubmit()">
+      <div class="form-group">
+        <label for="author">Författare</label>
+        <input type="text" [(ngModel)]="model.author" #author="ngModel" class="form-control" id="author" name="author" placeholder="Ange författarnamn">
+      </div>
+      <div class="form-group">
+        <label for="title">Titel</label>
+        <input type="text" [(ngModel)]="model.title" #title="ngModel" class="form-control" id="title" name="title" placeholder="Ange titel">
+      </div>
+      <div class="form-group">
+        <label for="year">Årtal</label>
+        <input type="text" [(ngModel)]="model.year" #year="ngModel" class="form-control" id="year" name="year" placeholder="Ange år">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  <div class="d-flex flex-column mx-auto">
+    <p>Author: {{model.author}}</p>
+    <p>Title: {{model.title}}</p>
+    <p>Year: {{model.year}}</p>
+  </div>
+</div>

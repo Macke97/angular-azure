@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
+import { Book } from './model';
+
 
 @Component({
   selector: 'app-books',
@@ -10,6 +12,7 @@ export class BooksComponent implements OnInit {
 
   constructor(private _apiService: ApiService) { }
   books: any;
+  model: Book = new Book('', '', '');
 
   ngOnInit() {
     this.getAllBooks();
@@ -25,6 +28,13 @@ export class BooksComponent implements OnInit {
 
     }, 500);
 
+  }
+
+  bookSubmit(){
+    this._apiService.addBook(this.model)
+      .subscribe((resp:any) => {
+        this.books.unshift(resp);
+      });
   }
 
 }

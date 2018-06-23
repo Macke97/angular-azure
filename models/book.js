@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 let bookSchema = new mongoose.Schema({
   author: String,
   title: String,
-  year: Number
+  year: String
 });
 
 let Book = mongoose.model('Book', bookSchema);
