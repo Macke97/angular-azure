@@ -9,13 +9,15 @@ import { GreetingComponent } from './greeting/greeting.component';
 import { HomeComponent } from './home/home.component';
 import { BooksComponent } from './books/books.component';
 import { ApiService } from './services/api.service';
+import { ReversePipe } from './reverse.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     GreetingComponent,
     HomeComponent,
-    BooksComponent
+    BooksComponent,
+    ReversePipe
   ],
   imports: [
     BrowserModule,
