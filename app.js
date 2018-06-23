@@ -41,7 +41,7 @@ app.use(session({
 
 app.use(cors(corsOptions));
 
-app.use(express.static('./myapp/dist/myapp'));
+app.use(express.static(path.join(__dirname, '/myapp/dist/myapp')));
 
 app.use(bodyParser.json());
 
