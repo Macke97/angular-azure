@@ -21,20 +21,6 @@ db.once('open', () => {
 //Cors related
 const cors = require('cors');
 
-const whitelist = ['https://angular-och-azure.azurewebsites.net', 'http://localhost:4200'];
-
-const corsOptions = {
-  origin: function(origin, callback) {
-    if(whitelist.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-      console.log('Allowed by CORS!');
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
-}
-
 const apiRouter = require('./api/index');
 
 //Body parser
@@ -51,7 +37,7 @@ app.use(session({
   }
 }));
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.static(path.join(__dirname, '/myapp/dist/myapp')));
 
