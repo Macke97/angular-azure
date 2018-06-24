@@ -13,9 +13,14 @@ export class BooksComponent implements OnInit {
   constructor(private _apiService: ApiService) { }
   books: any;
   model: Book = new Book('', '', '');
+  noBooks = true;
 
   ngOnInit() {
     this.getAllBooks();
+  }
+  
+  checkIfBooks(){
+    this.books.length > 0 ? this.noBooks = false : this.noBooks = true;
   }
 
   getAllBooks(){
@@ -24,6 +29,7 @@ export class BooksComponent implements OnInit {
       .subscribe((data:any) => {
         this.books = data;
         console.log(this.books)
+        this.checkIfBooks();
       });
 
     }, 500);
@@ -33,7 +39,20 @@ export class BooksComponent implements OnInit {
   bookSubmit(){
     this._apiService.addBook(this.model)
       .subscribe((resp:any) => {
+        console.log(resp);
         this.books.unshift(resp);
+        this.checkIfBooks();
+      });
+  }
+
+  removeBook(id: string){
+    this._apiService.removeBook(id)
+      .subscribe((resp: any) => {
+        console.log(resp);
+        let index = this.books.findIndex(b => b._id === resp._id); //Find index of our object we want to remove. Getting ID from response from backend
+        console.log('Removed', this.books[index]);
+        this.books.splice(index, 1);
+        this.checkIfBooks();
       });
   }
 

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Book } from '../books/model';
+import { environment } from '../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -19,8 +20,7 @@ const httpOptions = {
 export class ApiService {
 
   constructor(private http: HttpClient) { }
-  //booksUrl = 'https://angular-och-azure.azurewebsites.net/api/books';
-  booksUrl = 'http://localhost:3000/api/books';
+  booksUrl = environment.booksUrl;
   
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -48,4 +48,12 @@ export class ApiService {
         catchError(this.handleError)
       );
   }
+
+  removeBook(id: string) {
+    return this.http.delete(`${this.booksUrl}/remove/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
 }

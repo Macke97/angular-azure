@@ -8,42 +8,57 @@
 
 
 <div class="row">
+  <div class="col-12">
+    <div class="alert alert-danger" role="alert" *ngIf="noBooks">
+      Du har inga böcker inlagda! Vänligen använd formuläret nedan för att lägga till.
+    </div>
+  </div>
   <div class="col-4 mb-2" *ngFor="let book of books | reverse">
     <div class="list-group" >
-      <a class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="list-group-item flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">{{book.title}}</h5>
         </div>
         <p class="mb-1">Författare: {{book.author}}</p>
         <small>{{book.year}}</small>
-      </a>
+      </div>
     </div>
+    <button class="btn btn-danger" (click)="removeBook(book._id)">Ta bort</button>
   </div>
 </div>
 
 
 <!--Add new book form-->
 <div class="d-flex">
-  <div class="d-flex flex-column w-25">
-    <form #form="ngForm" (ngSubmit)="bookSubmit()">
-      <div class="form-group">
-        <label for="author">Författare</label>
-        <input type="text" [(ngModel)]="model.author" #author="ngModel" class="form-control" id="author" name="author" placeholder="Ange författarnamn">
+  <form #form="ngForm" (ngSubmit)="bookSubmit(); form.reset()" class="d-flex flex-column w-25">
+    <div class="form-group">
+      <label for="author">Författare</label>
+      <input type="text" [(ngModel)]="model.author" #author="ngModel" class="form-control" id="author" name="author" placeholder="Ange författarnamn">
+    </div>
+    <div class="form-group">
+      <label for="title">Titel</label>
+      <input type="text" [(ngModel)]="model.title" #title="ngModel" class="form-control" id="title" name="title" placeholder="Ange titel">
+    </div>
+    <div class="form-group">
+      <label for="year">Årtal</label>
+      <input type="text" [(ngModel)]="model.year" #year="ngModel" class="form-control" id="year" name="year" placeholder="Ange år">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <!--Preview view-->
+  <div class="d-flex flex-column mx-auto" *ngIf="model.author || model.title || model.year">
+    <h3>Preview</h3>
+    <div class="">
+      <div class="list-group">
+        <div class="list-group-item flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{model.title}}</h5>
+            <h3>{{model._id}}</h3>
+          </div>
+          <p class="mb-1">Författare: {{model.author}}</p>
+          <small>{{model.year}}</small>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="title">Titel</label>
-        <input type="text" [(ngModel)]="model.title" #title="ngModel" class="form-control" id="title" name="title" placeholder="Ange titel">
-      </div>
-      <div class="form-group">
-        <label for="year">Årtal</label>
-        <input type="text" [(ngModel)]="model.year" #year="ngModel" class="form-control" id="year" name="year" placeholder="Ange år">
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
-  <div class="d-flex flex-column mx-auto">
-    <p>Author: {{model.author}}</p>
-    <p>Title: {{model.title}}</p>
-    <p>Year: {{model.year}}</p>
+    </div>
   </div>
 </div>
