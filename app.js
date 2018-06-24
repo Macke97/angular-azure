@@ -26,7 +26,7 @@ const apiRouter = require('./api/index');
 //Body parser
 const bodyParser = require('body-parser');
 
-//app.use(require('prerender-node').set('prerenderToken', '6cJDnfypMOuMIIrudXKk')); //To enable pre-rendering for Angular App
+app.use(require('prerender-node').set('prerenderToken', '6cJDnfypMOuMIIrudXKk')); //To enable pre-rendering for Angular App
 
 app.use(session({
   secret: 'keyboard cat',
