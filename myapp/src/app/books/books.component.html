@@ -13,7 +13,7 @@
       Du har inga böcker inlagda! Vänligen använd formuläret nedan för att lägga till.
     </div>
   </div>
-  <div class="col-4 mb-2" *ngFor="let book of books | reverse">
+  <div class="col-6 col-lg-4 mb-2" *ngFor="let book of books | reverse">
     <div class="list-group" >
       <div class="list-group-item flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
@@ -29,8 +29,8 @@
 
 
 <!--Add new book form-->
-<div class="d-flex">
-  <form #form="ngForm" (ngSubmit)="bookSubmit(); form.reset()" class="d-flex flex-column w-25">
+<div class="row">
+  <form #form="ngForm" (ngSubmit)="bookSubmit(); form.reset()" class="col-12 col-lg-4">
     <div class="form-group">
       <label for="author">Författare</label>
       <input type="text" [(ngModel)]="model.author" #author="ngModel" class="form-control" id="author" name="author" placeholder="Ange författarnamn">
@@ -46,7 +46,7 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
   <!--Preview view-->
-  <div class="d-flex flex-column mx-auto" *ngIf="model.author || model.title || model.year">
+  <div class="col-12 col-lg-4" *ngIf="model.author || model.title || model.year">
     <h3>Preview</h3>
     <div class="">
       <div class="list-group">
