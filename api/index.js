@@ -29,8 +29,33 @@ router.post('/books', (req, res, next) => {
     if(error) {
       return console.log(error);
     }
-    return res.json(newBook);
+    return res.json(book);
   });
+});
+
+//Remove book
+router.delete('/books/remove/:id', (req, res, next) => {
+  Book.findOne({_id: req.params.id}, (err, book) => {
+    if(err) {
+      console.log(err);
+      let customError = {message: `Could not find book with id ${req.params.id}`}; //Error to the user. Simplified
+      return res.json(customError);
+    } 
+    //Remove book if found!
+    if(book){
+      Book.deleteOne({_id: book._id}, (err, resp) => {
+        if(err) {
+          console.log(err);
+          return res.json(err);
+        }
+        res.json(book);
+      });
+    } else {
+      console.error(`Could not find book with id ${req.params.id}`);
+      let customError = { message: `Could not find book with id ${req.params.id}` };
+      return res.json(customError);
+    }
+  });  
 });
 
 module.exports = router;
