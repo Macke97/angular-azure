@@ -7,12 +7,15 @@ const dbUrl = require('./config/database');
 //Express session
 const session = require('express-session');
 
+//Connect-mongo
+const MongoStore = require('connect-mongo')(session);
+
 const path = require('path');
 
 const mongoose = require('mongoose');
 
 //mongoose connection
-mongoose.connect(process.env.MONGOSTRING || dbUrl.url);
+mongoose.connect(dbUrl.url);
 const db = mongoose.connection;
 db.once('open', () => {
   console.log('DB CONNECTED!');
@@ -26,6 +29,8 @@ const apiRouter = require('./api/index');
 //Body parser
 const bodyParser = require('body-parser');
 
+app.disable('x-powered-by'); //Tells Express not showing the client the servers is running Express
+
 app.use(require('prerender-node').set('prerenderToken', '6cJDnfypMOuMIIrudXKk')); //To enable pre-rendering for Angular App
 
 app.use(session({
@@ -34,7 +39,9 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     secure: false
-  }
+  },
+  store: new MongoStore({mongooseConnection: db}),
+  name: 'sessionId'
 }));
 
 app.use(cors());
