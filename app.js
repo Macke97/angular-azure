@@ -15,7 +15,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 
 //mongoose connection
-mongoose.connect(process.env.MONGOSTRING || dbUrl.url);
+mongoose.connect(process.env['MONGOSTRING'] || dbUrl.url);
 const db = mongoose.connection;
 db.once('open', () => {
   console.log('DB CONNECTED!');
