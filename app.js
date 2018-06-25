@@ -7,12 +7,15 @@ const dbUrl = require('./config/database');
 //Express session
 const session = require('express-session');
 
+//Connect-mongo
+const MongoStore = require('connect-mongo')(session);
+
 const path = require('path');
 
 const mongoose = require('mongoose');
 
 //mongoose connection
-mongoose.connect(process.env.MONGOSTRING || dbUrl.url);
+mongoose.connect(`${process.env.MONGOSTRING}` || dbUrl.url);
 const db = mongoose.connection;
 db.once('open', () => {
   console.log('DB CONNECTED!');
@@ -36,7 +39,9 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     secure: false
-  }
+  },
+  store: new MongoStore({mongooseConnection: db}),
+  name: 'sessionId'
 }));
 
 app.use(cors());
