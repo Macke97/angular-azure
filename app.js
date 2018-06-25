@@ -8,7 +8,7 @@ const dbUrl = require('./config/database');
 const session = require('express-session');
 
 //Connect-mongo
-// const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo')(session);
 
 const path = require('path');
 
@@ -40,7 +40,7 @@ app.use(session({
   cookie: {
     secure: false
   },
-  // store: new MongoStore({mongooseConnection: db}),
+  store: new MongoStore({mongooseConnection: db}),
   name: 'sessionId'
 }));
 
