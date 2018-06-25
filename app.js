@@ -26,6 +26,8 @@ const apiRouter = require('./api/index');
 //Body parser
 const bodyParser = require('body-parser');
 
+app.disable('x-powered-by'); //Tells Express not showing the client the servers is running Express
+
 app.use(require('prerender-node').set('prerenderToken', '6cJDnfypMOuMIIrudXKk')); //To enable pre-rendering for Angular App
 
 app.use(session({
