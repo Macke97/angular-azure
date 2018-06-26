@@ -48,7 +48,7 @@ app.use(bodyParser.urlencoded({
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   name: 'sessionId',
   store: new MongoStore({url: dbUrl.url})
 }));
