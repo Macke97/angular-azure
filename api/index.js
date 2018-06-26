@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Book = require('../models/book');
 
+//IGDB stuff
+const igdb = require('igdb-api-node').default;
+const client = igdb('7c44d61f3d706061f03d7de294d30dbb');
+
 router.get('/message', (req, res, next) => {
   res.json({
     YourSessionId: req.session.id
@@ -56,6 +60,23 @@ router.delete('/books/remove/:id', (req, res, next) => {
       return res.json(customError);
     }
   });  
+});
+
+//Get games
+router.get('/games', (req, res, next) => {
+  client.games({
+    limit: 5,
+    offset: 0,
+    order: 'release_dates.date:desc',
+    search: 'battlefield'
+  }, [
+    'name',
+    'release_dates.date',
+    'rating',
+    'hypes',
+    'cover',
+    'summary'
+  ]).then(response => res.json(response));
 });
 
 module.exports = router;

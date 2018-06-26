@@ -40,7 +40,7 @@ app.use(session({
   cookie: {
     secure: false
   },
-  store: new MongoStore({mongooseConnection: db}),
+  store: new MongoStore({mongooseConnection: mongoose.connection}),
   name: 'sessionId'
 }));
 
