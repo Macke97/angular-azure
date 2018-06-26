@@ -49,8 +49,8 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: false,
-  // store: new MongoStore({mongooseConnection: mongoose.connection}),
-  name: 'sessionId'
+  name: 'sessionId',
+  store: new MongoStore({url: dbUrl.url})
 }));
 
 app.use('/api', apiRouter);
