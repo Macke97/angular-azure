@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const dbUrl = require('./config/database');
+const mongoose = require('mongoose');
 
 //Express session
 const session = require('express-session');
@@ -12,7 +13,6 @@ const MongoStore = require('connect-mongo')(session);
 
 const path = require('path');
 
-const mongoose = require('mongoose');
 
 //mongoose connection
 mongoose.connect(dbUrl.url);
@@ -36,10 +36,7 @@ app.use(require('prerender-node').set('prerenderToken', '6cJDnfypMOuMIIrudXKk'))
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: false
-  },
+  saveUninitialized: false,
   store: new MongoStore({mongooseConnection: mongoose.connection}),
   name: 'sessionId'
 }));
