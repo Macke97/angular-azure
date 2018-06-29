@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { BooksComponent } from './books/books.component';
 import { ApiService } from './services/api.service';
 import { ReversePipe } from './reverse.pipe';
+import { GamesListComponent } from './games-list/games-list.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ReversePipe } from './reverse.pipe';
     GreetingComponent,
     HomeComponent,
     BooksComponent,
-    ReversePipe
+    ReversePipe,
+    GamesListComponent
   ],
   imports: [
     BrowserModule,

@@ -9,9 +9,7 @@ const igdb = require('igdb-api-node').default;
 const client = igdb('7c44d61f3d706061f03d7de294d30dbb');
 
 router.get('/message', (req, res, next) => {
-  res.json({
-    YourSessionId: req.session.id
-  });
+  Object.keys(req.query).length > 0 ? res.json(req.query) : res.send('No query');
 });
 
 //get all from db

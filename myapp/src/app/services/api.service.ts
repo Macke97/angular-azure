@@ -21,6 +21,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
   booksUrl = environment.booksUrl;
+  gamesUrl = environment.gamesUrl;
   
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -54,6 +55,10 @@ export class ApiService {
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+  getAllGames(){
+    return this.http.get(this.gamesUrl);
   }
 
 }

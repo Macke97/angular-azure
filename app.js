@@ -27,7 +27,7 @@ const cors = require('cors');
 const apiRouter = require('./api/index');
 
 //Body parser
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser'); BODY-PARSE NO LONGER NEEDER BECAUSE IT'S NOW INCLUDED WITH EXPRESS
 
 app.disable('x-powered-by'); //Tells Express not showing the client the servers is running Express
 
@@ -39,9 +39,9 @@ app.use(cors());
 
 app.use(express.static(path.join(__dirname, '/myapp/dist/myapp')));
 
-app.use(bodyParser.json());
+app.use(express.json());
 
-app.use(bodyParser.urlencoded({
+app.use(express.urlencoded({
   extended: false
 }));
 
