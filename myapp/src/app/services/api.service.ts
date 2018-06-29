@@ -57,6 +57,10 @@ export class ApiService {
       );
   }
 
+  updateBook(book: any) {
+    return this.http.put(`${this.booksUrl}/update/${book._id}`, book, httpOptions);
+  }
+
   getAllGames(){
     return this.http.get(this.gamesUrl);
   }

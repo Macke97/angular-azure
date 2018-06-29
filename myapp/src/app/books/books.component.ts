@@ -3,6 +3,7 @@ import { ApiService } from '../services/api.service';
 import { Book } from './model';
 
 
+
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
@@ -14,6 +15,7 @@ export class BooksComponent implements OnInit {
   books: any;
   model: Book = new Book('', '', '');
   noBooks = true;
+  selectedBook: any = {};
 
   ngOnInit() {
     this.getAllBooks();

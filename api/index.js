@@ -77,4 +77,20 @@ router.get('/games', (req, res, next) => {
   ]).then(response => res.json(response));
 });
 
+
+//Update book
+router.put('/books/update/:id', (req, res, next) => {
+  Book.updateOne({_id: req.params.id}, {
+    $set: {
+      title: req.body.title,
+      author: req.body.author,
+      year: req.body.year
+    }
+  }, (err, data) => {
+    if(err) {
+      res.send(err);
+    }
+  })
+});
+
 module.exports = router;
