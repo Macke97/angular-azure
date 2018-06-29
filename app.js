@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const dbUrl = require('./config/database');
+const mongoose = require('mongoose');
 
 //Express session
 const session = require('express-session');
@@ -12,7 +13,6 @@ const MongoStore = require('connect-mongo')(session);
 
 const path = require('path');
 
-const mongoose = require('mongoose');
 
 //mongoose connection
 mongoose.connect(dbUrl.url);
@@ -33,18 +33,9 @@ app.disable('x-powered-by'); //Tells Express not showing the client the servers 
 
 app.use(require('prerender-node').set('prerenderToken', '6cJDnfypMOuMIIrudXKk')); //To enable pre-rendering for Angular App
 
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: false
-  },
-  store: new MongoStore({mongooseConnection: mongoose.connection}),
-  name: 'sessionId'
-}));
 
 app.use(cors());
+
 
 app.use(express.static(path.join(__dirname, '/myapp/dist/myapp')));
 
@@ -52,6 +43,14 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({
   extended: false
+}));
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  name: 'sessionId',
+  store: new MongoStore({url: dbUrl.url})
 }));
 
 app.use('/api', apiRouter);
