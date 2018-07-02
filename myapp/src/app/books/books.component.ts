@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { Book } from './model';
+import { AuthService } from '../services/auth.service';
 
 
 
@@ -11,14 +12,20 @@ import { Book } from './model';
 })
 export class BooksComponent implements OnInit {
 
-  constructor(private _apiService: ApiService) { }
+  constructor(private _apiService: ApiService, private auth: AuthService) { }
   books: any;
   model: Book = new Book('', '', '');
   noBooks = true;
   selectedBook: any = {};
+  userFirstname;
 
   ngOnInit() {
     this.getAllBooks();
+    this.getProfileData();
+  }
+
+  getProfileData(){
+    this.auth.getUserData().subscribe((response:any) => this.userFirstname = response.data.firstname);
   }
   
   checkIfBooks(){

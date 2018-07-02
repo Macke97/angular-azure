@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +11,12 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 export class AppComponent implements OnInit{
   title: string;
   
-  constructor(private _titleService: Title, private router: Router, private activatedRoute: ActivatedRoute){}
+  constructor(private _titleService: Title, private router: Router, private activatedRoute: ActivatedRoute,
+  private auth: AuthService){}
   
   ngOnInit(){
     this.setPageTitle();
+    this.checkIfLoggedIn();
   }
 
   setPageTitle(){
@@ -27,6 +30,18 @@ export class AppComponent implements OnInit{
           : this.title = '';
       }
       this._titleService.setTitle(`${currentTitle} | ${this.title}`);
+    });
+  }
+
+  checkIfLoggedIn(){
+    this.auth.checkIfLoggedIn().subscribe((response:any) => {
+      if(response.loggedIn) {
+        this.auth.loggedIn = true;
+        console.log('You are logged in!');
+      } else {
+        console.log('You are not logged in!');
+        
+      }
     });
   }
 

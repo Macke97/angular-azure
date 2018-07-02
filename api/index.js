@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Book = require('../models/book');
+const User = require('../models/User');
 
 //IGDB stuff
 const igdb = require('igdb-api-node').default;
@@ -91,6 +92,83 @@ router.put('/books/update/:id', (req, res, next) => {
       res.send(err);
     }
   })
+});
+
+
+
+//Register user, post request
+router.post('/register', (req, res, next) => {
+  if(req.body.firstname && req.body.username && req.body.password) {
+    let newUser = {
+      firstname: req.body.firstname,
+      username: req.body.username,
+      password: req.body.password
+    }
+
+    User.create(newUser, (error, user) => {
+      if(error) return next(error);
+
+      req.session.userId = user._id;
+      res.json(user)
+    });
+
+  } else {
+    res.status = 500;
+    res.send('Error!');
+  }
+});
+
+//Login post request
+router.post('/login', (req, res, next) => {
+  if(req.body.username && req.body.password) {
+    User.authenticate(req.body.username, req.body.password, (error, user) => {
+      if(error || !user) {
+        let err = new Error('Wrong inputs');
+        err.status = 401;
+        return next(err);
+      } else {
+        req.session.userId = user._id;
+        res.json({
+          message: 'Logged in!',
+          user: user
+        })
+      }
+    });
+  } else {
+    res.send('Please input data to login!').status(401);
+  }
+});
+
+
+//Check if logged in
+router.get('/login', (req, res, next) => {
+  if(req.session.userId) {
+    res.json({
+      loggedIn: true
+    });
+  } else {
+    res.json({
+      loggedIn: false
+    })
+  }
+});
+
+
+//Get profile data, GET request
+router.get('/get_profile_data', (req, res, next) => {
+  if(req.session.userId) {
+    User.findOne({
+      _id: req.session.userId
+    }, (err, data) => {
+      if(err) console.log(err);
+      res.json({
+        message: 'You are logged in',
+        data: data
+      });
+    });
+  } else {
+    res.send('Not logged in!');
+  }
 });
 
 module.exports = router;

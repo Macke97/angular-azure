@@ -50,7 +50,10 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   name: 'sessionId',
-  store: new MongoStore({url: dbUrl.url})
+  store: new MongoStore({url: dbUrl.url}),
+  cookie: {
+    secure: false
+  }
 }));
 
 app.use('/api', apiRouter);
