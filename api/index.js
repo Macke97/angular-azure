@@ -13,10 +13,14 @@ router.get('/message', (req, res, next) => {
   Object.keys(req.query).length > 0 ? res.json(req.query) : res.send('No query');
 });
 
-//get all from db
+//get all user's books from db
 router.get('/books', async (req, res, next) => {
-  let allBooks = await Book.find();
-  res.json(allBooks);
+  Book.find({
+    user: req.session.userId
+  }, (err, data) => {
+    if(err) console.log(err);
+    res.json(data);
+  });
 });
 
 //post a new book
