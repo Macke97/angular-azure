@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
+import { timeout, delay } from 'rxjs/operators';
+
 
 
 const httpOptions = {
@@ -28,7 +30,7 @@ export class AuthService {
   } 
 
   getUserData(){
-    return this.http.get(`${environment.apiUrl}/get_profile_data`, {withCredentials: true});
+    return this.http.get(`${environment.apiUrl}/get_profile_data`, httpOptions);
   }
 
   login(formData){
@@ -41,5 +43,12 @@ export class AuthService {
 
   logout(){
     return this.http.get(`${environment.apiUrl}/logout`, httpOptions)
+  }
+
+  checkUsername(username){
+    return this.http.get(`${environment.apiUrl}/username_taken/${username}`, httpOptions)
+    .pipe(
+      delay(500)
+    );
   }
 }

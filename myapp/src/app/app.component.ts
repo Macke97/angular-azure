@@ -15,7 +15,7 @@ export class AppComponent implements OnInit{
   subscription;
   
   constructor(private _titleService: Title, private router: Router, private activatedRoute: ActivatedRoute,
-  private auth: AuthService, private comParentChild: ComParentChildService){}
+  public auth: AuthService, private comParentChild: ComParentChildService){}
   
   ngOnInit(){
     this.setPageTitle();

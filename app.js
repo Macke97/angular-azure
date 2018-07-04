@@ -36,9 +36,8 @@ app.use(require('prerender-node').set('prerenderToken', '6cJDnfypMOuMIIrudXKk'))
 
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:3000', 'http://localhost:4200']
+  origin: ['http://localhost:3000', 'http://localhost:4200', 'http://angular-och-azure.azurewebsites.net']
 }));
-
 
 app.use(express.static(path.join(__dirname, '/myapp/dist/myapp')));
 

@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   login(data) {
     let formData = {
-      username: data.target[0].value,
+      username: data.target[0].value.toLowerCase(),
       password: data.target[1].value,
     }
 

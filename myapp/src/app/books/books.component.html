@@ -1,4 +1,4 @@
-<h1>Välkommen {{ userFirstname || ERROR }}</h1>
+<h1>Välkommen {{ userFirstname || 'ERROR' }}</h1>
 
 <div class="row h-100 w-100 position-absolute" *ngIf="!books">
   <div class="mx-auto my-auto">

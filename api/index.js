@@ -107,7 +107,7 @@ router.post('/register', (req, res, next) => {
     }
 
     User.create(newUser, (error, user) => {
-      if(error) return next(error);
+      if(error) return;
 
       req.session.userId = user._id;
       res.json(user)
@@ -124,9 +124,7 @@ router.post('/login', (req, res, next) => {
   if(req.body.username && req.body.password) {
     User.authenticate(req.body.username, req.body.password, (error, user) => {
       if(error || !user) {
-        let err = new Error('Wrong inputs');
-        err.status = 401;
-        return res.json(err);
+        return res.status(401).send('Wrong credentials');
       } else {
         req.session.userId = user._id;
         res.json({
@@ -136,7 +134,7 @@ router.post('/login', (req, res, next) => {
       }
     });
   } else {
-    res.send('Please input data to login!').status(401);
+    res.status(401).send('Please input data to login!');
   }
 });
 
@@ -179,6 +177,23 @@ router.get('/logout', (req, res, next) => {
   req.session.destroy();
 
   console.log(req.session);
+});
+
+//Check if username is taken, POST req
+router.get('/username_taken/:username?', (req, res, next) => {
+  if(req.params.username) {
+    User.findOne({
+      username: req.params.username
+    }, (err, user) => {
+      if(err) {
+        res.json(err);
+      } else if(!user){
+        res.json({username_taken: false});
+      } else {
+        res.json({username_taken: true});
+      }
+    });
+  } 
 });
 
 module.exports = router;

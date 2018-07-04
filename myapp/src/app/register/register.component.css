@@ -1,0 +1,11 @@
+input.ng-invalid.ng-touched {
+  border: red solid 2px;
+}
+
+input.error.ng-touched { /* If username is taken, custom error */
+  border: red solid 2px !important;
+}
+
+input.ng-valid.ng-touched{
+  border: green solid 2px;
+}
