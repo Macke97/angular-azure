@@ -41,7 +41,7 @@ export class ApiService {
   };
 
   getBooks(){
-    return this.http.get(this.booksUrl);
+    return this.http.get(this.booksUrl, httpOptions);
   }
 
   addBook(book: Book){
