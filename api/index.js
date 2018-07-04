@@ -24,7 +24,8 @@ router.post('/books', (req, res, next) => {
   let newBook = {
     author: req.body.author,
     title: req.body.title,
-    year: req.body.year
+    year: req.body.year,
+    user: req.session.userId
   }
 
   //Create new book
@@ -125,7 +126,7 @@ router.post('/login', (req, res, next) => {
       if(error || !user) {
         let err = new Error('Wrong inputs');
         err.status = 401;
-        return next(err);
+        return res.json(err);
       } else {
         req.session.userId = user._id;
         res.json({
@@ -169,6 +170,15 @@ router.get('/get_profile_data', (req, res, next) => {
   } else {
     res.send('Not logged in!');
   }
+});
+
+//Logut GET req
+router.get('/logout', (req, res, next) => {
+  console.log(req.session);
+  
+  req.session.destroy();
+
+  console.log(req.session);
 });
 
 module.exports = router;

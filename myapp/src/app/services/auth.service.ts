@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
+    'Access-Control-Allow-Origin': 'http://localhost:4200'
   }),
   withCredentials: true
 
@@ -37,5 +37,9 @@ export class AuthService {
 
   checkIfLoggedIn(){
     return this.http.get(`${environment.apiUrl}/login`, httpOptions);
+  }
+
+  logout(){
+    return this.http.get(`${environment.apiUrl}/logout`, httpOptions)
   }
 }

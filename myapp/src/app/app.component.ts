@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { ComParentChildService } from './services/com-parent-child.service';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +11,20 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit{
   title: string;
+  userFirstname: string;
+  subscription;
   
   constructor(private _titleService: Title, private router: Router, private activatedRoute: ActivatedRoute,
-  private auth: AuthService){}
+  private auth: AuthService, private comParentChild: ComParentChildService){}
   
   ngOnInit(){
     this.setPageTitle();
     this.checkIfLoggedIn();
+    this.subscription = this.comParentChild.on('getDataEvent').subscribe(() => this.getUserData());
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 
   setPageTitle(){
@@ -38,11 +46,19 @@ export class AppComponent implements OnInit{
       if(response.loggedIn) {
         this.auth.loggedIn = true;
         console.log('You are logged in!');
+        this.getUserData();
       } else {
         console.log('You are not logged in!');
-        
       }
     });
   }
 
+  getUserData(){
+    if(this.auth.loggedIn){
+      this.auth.getUserData().subscribe((response:any) => {
+        this.userFirstname = response.data.firstname;
+      });
+      this.subscription.unsubscribe();
+    }
+  }
 }

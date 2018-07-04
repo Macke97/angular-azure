@@ -17,6 +17,7 @@ import { AuthService } from './services/auth.service';
 import { RegisterComponent } from './register/register.component';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginComponent } from './login/login.component';
+import { ComParentChildService } from './services/com-parent-child.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { LoginComponent } from './login/login.component';
   providers: [
     ApiService,
     AuthService,
-    CookieService
+    CookieService,
+    ComParentChildService
   ],
   bootstrap: [AppComponent]
 })

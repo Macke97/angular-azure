@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 let userSchema = new Schema({
   firstname: {type:String, required:true},
   username: {type:String, required: true},
-  password: {type:String, required:true}
+  password: {type:String, required:true},
+  books: [{type: Schema.Types.ObjectId, ref: 'Book'}]
 });
 
 userSchema.statics.authenticate = function(username, password, callback) {

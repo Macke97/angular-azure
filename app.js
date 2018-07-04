@@ -34,7 +34,10 @@ app.disable('x-powered-by'); //Tells Express not showing the client the servers 
 app.use(require('prerender-node').set('prerenderToken', '6cJDnfypMOuMIIrudXKk')); //To enable pre-rendering for Angular App
 
 
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:3000', 'http://localhost:4200']
+}));
 
 
 app.use(express.static(path.join(__dirname, '/myapp/dist/myapp')));
