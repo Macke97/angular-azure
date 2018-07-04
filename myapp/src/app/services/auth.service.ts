@@ -9,9 +9,10 @@ import { timeout, delay } from 'rxjs/operators';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': 'http://localhost:4200'
+    'Access-Control-Allow-Origin': ['http://localhost:3000', 'http://localhost:4200', 'http://angular-och-azure.azurewebsites.net']
   }),
-  withCredentials: true
+  withCredentials: true,
+  
 
 }
 
