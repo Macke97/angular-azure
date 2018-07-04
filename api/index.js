@@ -3,15 +3,14 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Book = require('../models/book');
+const User = require('../models/User');
 
 //IGDB stuff
 const igdb = require('igdb-api-node').default;
 const client = igdb('7c44d61f3d706061f03d7de294d30dbb');
 
 router.get('/message', (req, res, next) => {
-  res.json({
-    YourSessionId: req.session.id
-  });
+  Object.keys(req.query).length > 0 ? res.json(req.query) : res.send('No query');
 });
 
 //get all from db
@@ -25,7 +24,8 @@ router.post('/books', (req, res, next) => {
   let newBook = {
     author: req.body.author,
     title: req.body.title,
-    year: req.body.year
+    year: req.body.year,
+    user: req.session.userId
   }
 
   //Create new book
@@ -77,6 +77,123 @@ router.get('/games', (req, res, next) => {
     'cover',
     'summary'
   ]).then(response => res.json(response));
+});
+
+
+//Update book
+router.put('/books/update/:id', (req, res, next) => {
+  Book.updateOne({_id: req.params.id}, {
+    $set: {
+      title: req.body.title,
+      author: req.body.author,
+      year: req.body.year
+    }
+  }, (err, data) => {
+    if(err) {
+      res.send(err);
+    }
+  })
+});
+
+
+
+//Register user, post request
+router.post('/register', (req, res, next) => {
+  if(req.body.firstname && req.body.username && req.body.password) {
+    let newUser = {
+      firstname: req.body.firstname,
+      username: req.body.username,
+      password: req.body.password
+    }
+
+    User.create(newUser, (error, user) => {
+      if(error) return;
+
+      req.session.userId = user._id;
+      res.json(user)
+    });
+
+  } else {
+    res.status = 500;
+    res.send('Error!');
+  }
+});
+
+//Login post request
+router.post('/login', (req, res, next) => {
+  if(req.body.username && req.body.password) {
+    User.authenticate(req.body.username, req.body.password, (error, user) => {
+      if(error || !user) {
+        return res.status(401).send('Wrong credentials');
+      } else {
+        req.session.userId = user._id;
+        res.json({
+          message: 'Logged in!',
+          user: user
+        })
+      }
+    });
+  } else {
+    res.status(401).send('Please input data to login!');
+  }
+});
+
+
+//Check if logged in
+router.get('/login', (req, res, next) => {
+  if(req.session.userId) {
+    res.json({
+      loggedIn: true
+    });
+  } else {
+    res.json({
+      loggedIn: false
+    })
+  }
+});
+
+
+//Get profile data, GET request
+router.get('/get_profile_data', (req, res, next) => {
+  if(req.session.userId) {
+    User.findOne({
+      _id: req.session.userId
+    }, (err, data) => {
+      if(err) console.log(err);
+      res.json({
+        message: 'You are logged in',
+        data: data
+      });
+    });
+  } else {
+    res.send('Not logged in!');
+  }
+});
+
+//Logut GET req
+router.get('/logout', (req, res, next) => {
+  console.log(req.session);
+  
+  req.session.destroy();
+
+  console.log(req.session);
+});
+
+//Check if username is taken, POST req
+router.get('/username_taken/:username?', (req, res, next) => {
+  if(req.params.username) {
+    User.findOne({
+      username: req.params.username
+    }, (err, user) => {
+      if(err) {
+        res.json(err);
+      } else if(!user){
+        res.json({username_taken: false});
+      } else {
+        res.json({username_taken: true});
+      }
+    });
+  } 
 });
 
 module.exports = router;

@@ -1,3 +1,5 @@
+<h1>Välkommen {{ userFirstname || 'ERROR' }}</h1>
+
 <div class="row h-100 w-100 position-absolute" *ngIf="!books">
   <div class="mx-auto my-auto">
     <i class="fa fa-spinner fa-spin text-center" style="font-size:72px"></i>
@@ -13,7 +15,7 @@
       Du har inga böcker inlagda! Vänligen använd formuläret nedan för att lägga till.
     </div>
   </div>
-  <div class="col-6 col-lg-4 mb-2" *ngFor="let book of books | reverse">
+  <div class="col-6 col-lg-4 mb-2" *ngFor="let book of books | reverse" (click)="selectedBook = book">
     <div class="list-group" >
       <div class="list-group-item flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between">
@@ -26,6 +28,8 @@
     <button class="btn btn-danger" (click)="removeBook(book._id)">Ta bort</button>
   </div>
 </div>
+
+{{selectedBook.title}}
 
 
 <!--Add new book form-->
@@ -63,4 +67,8 @@
   </div>
 </div>
 
-<img src="https://d31ds8iyhta7z1.cloudfront.net/img/products/1300/idiotkunskap-bok-1.jpg" alt="Bok">
+<div class="row">
+  <div class="col-5">
+    <app-book [book]="selectedBook"></app-book>
+  </div>
+</div>

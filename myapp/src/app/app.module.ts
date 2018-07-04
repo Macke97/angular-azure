@@ -11,6 +11,13 @@ import { HomeComponent } from './home/home.component';
 import { BooksComponent } from './books/books.component';
 import { ApiService } from './services/api.service';
 import { ReversePipe } from './reverse.pipe';
+import { GamesListComponent } from './games-list/games-list.component';
+import { BookComponent } from './book/book.component';
+import { AuthService } from './services/auth.service';
+import { RegisterComponent } from './register/register.component';
+import { CookieService } from 'ngx-cookie-service';
+import { LoginComponent } from './login/login.component';
+import { ComParentChildService } from './services/com-parent-child.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +25,11 @@ import { ReversePipe } from './reverse.pipe';
     GreetingComponent,
     HomeComponent,
     BooksComponent,
-    ReversePipe
+    ReversePipe,
+    GamesListComponent,
+    BookComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +38,10 @@ import { ReversePipe } from './reverse.pipe';
     FormsModule
   ],
   providers: [
-    ApiService
+    ApiService,
+    AuthService,
+    CookieService,
+    ComParentChildService
   ],
   bootstrap: [AppComponent]
 })

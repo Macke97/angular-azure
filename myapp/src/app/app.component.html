@@ -19,14 +19,26 @@
         <a class="nav-link" routerLink="/books" routerLinkActive="active">Böcker</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown align-self-end" *ngIf="auth.loggedIn">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{userFirstname}}
+        </a>
+        <!-- <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div> -->
+      </li>
+      <li class="nav-item" *ngIf="!auth.loggedIn">
+        <a class="nav-link" routerLink="/login" routerLinkActive="active">Logga in</a>
+      </li>
+      
+    </ul>
   </div>
 </nav>
 <main class="container-fluid">
-  <router-outlet></router-outlet>
+  <router-outlet (getDataEvent)="getUserData()"></router-outlet>
 </main>
 
 

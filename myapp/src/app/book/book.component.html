@@ -1,0 +1,15 @@
+<form #form="ngForm" (ngSubmit)="updateBook(); form.reset()">
+  <div class="form-group">
+    <label for="author">Författare</label>
+    <input type="text" [(ngModel)]="book.author" #author="ngModel" class="form-control" id="author" name="author" placeholder="Ange författarnamn">
+  </div>
+  <div class="form-group">
+    <label for="title">Titel</label>
+    <input type="text" [(ngModel)]="book.title" #title="ngModel" class="form-control" id="title" name="title" placeholder="Ange titel">
+  </div>
+  <div class="form-group">
+    <label for="year">Årtal</label>
+    <input type="text" [(ngModel)]="book.year" #year="ngModel" class="form-control" id="year" name="year" placeholder="Ange år">
+  </div>
+  <button type="submit" class="btn btn-primary">Update!</button>
+</form>

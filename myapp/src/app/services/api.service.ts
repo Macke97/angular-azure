@@ -9,7 +9,8 @@ const httpOptions = {
   headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
-    })
+    }),
+    withCredentials: true
     
 }
 
@@ -21,6 +22,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
   booksUrl = environment.booksUrl;
+  gamesUrl = environment.gamesUrl;
   
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -54,6 +56,14 @@ export class ApiService {
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+  updateBook(book: any) {
+    return this.http.put(`${this.booksUrl}/update/${book._id}`, book, httpOptions);
+  }
+
+  getAllGames(){
+    return this.http.get(this.gamesUrl);
   }
 
 }
