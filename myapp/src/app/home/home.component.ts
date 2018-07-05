@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
 
   logout(){
     this.auth.logout().subscribe((response:any) => {
+      this.comParentChild.publish('getDataEvent');
       
     });
   }
