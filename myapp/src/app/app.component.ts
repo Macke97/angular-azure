@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   title: string;
   userFirstname: string;
   subscription;
-  
+
   constructor(private _titleService: Title, private router: Router, private activatedRoute: ActivatedRoute,
   public auth: AuthService, private comParentChild: ComParentChildService){}
   
