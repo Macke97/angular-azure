@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       if(response.user) {
         this.auth.loggedIn = true;
         this.router.navigate(['/books']);
-        this.comParentChild.publish('getDataEvent');
+        //this.comParentChild.publish('getDataEvent');
       } else this.auth.loggedIn = false;
     });
   }

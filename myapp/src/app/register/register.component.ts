@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
     this.auth.register(formData).subscribe(response => {
       this.auth.loggedIn = true;
       this.router.navigate(['/books']);
-      this.comParentChild.publish('getDataEvent');
+      //this.comParentChild.publish('getDataEvent');
     });
     
   }

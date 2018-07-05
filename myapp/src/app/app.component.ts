@@ -20,11 +20,11 @@ export class AppComponent implements OnInit{
   ngOnInit(){
     this.setPageTitle();
     this.checkIfLoggedIn();
-    this.subscription = this.comParentChild.on('getDataEvent').subscribe(() => this.getUserData());
+    //this.subscription = this.comParentChild.on('getDataEvent').subscribe(() => this.getUserData());
   }
 
   ngOnDestroy(){
-    this.subscription.unsubscribe();
+    //this.subscription.unsubscribe();
   }
 
   setPageTitle(){
