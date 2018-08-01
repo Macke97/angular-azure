@@ -36,7 +36,7 @@ app.use(require('prerender-node').set('prerenderToken', '6cJDnfypMOuMIIrudXKk'))
 
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:3000', 'http://localhost:4200', 'http://angular-och-azure.azurewebsites.net'],
+  origin: ['http://localhost:3000', 'http://localhost:4200', 'https://mackans-test.herokuapp.com'],
   credentials: true
 }));
 

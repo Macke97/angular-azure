@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  booksUrl: 'https://angular-och-azure.azurewebsites.net/api/books',
-  gamesUrl: 'https://angular-och-azure.azurewebsites.net/api/games',
-  apiUrl: 'https://angular-och-azure.azurewebsites.net/api'
+  booksUrl: 'https://mackans-test.herokuapp.com/api/books',
+  gamesUrl: 'https://mackans-test.herokuapp.com/api/games',
+  apiUrl: 'https://mackans-test.herokuapp.com/api'
 };
